@@ -92,11 +92,17 @@
           <div v-if="currentView === 'notas'">
             <h2>📝 Notas</h2>
 
+            <input
+              v-model="nuevoTituloNota"
+              class="form-control mb-2"
+              placeholder="Título de la nota"
+            />
+
             <textarea
-              v-model="nuevaNota"
+              v-model="nuevoContenidoNota"
               class="form-control mb-3"
               rows="4"
-              placeholder="Escribe una nueva nota...">
+              placeholder="Escribe tu nota...">
             </textarea>
 
             <button class="btn btn-primary mb-4" @click="guardarNota">
@@ -104,7 +110,8 @@
             </button>
 
             <div v-for="(nota, index) in notas" :key="index" class="card p-3 mb-3">
-              <p>{{ nota }}</p>
+              <h5>{{ nota.titulo }}</h5>
+              <p>{{ nota.contenido }}</p>
 
               <button class="btn btn-danger btn-sm" @click="eliminarNota(index)">
                 Eliminar
@@ -142,7 +149,8 @@ export default {
       formulas: JSON.parse(localStorage.getItem("formulas")) || [],
 
       // NOTAS
-      nuevaNota: "",
+      nuevoTituloNota: "",
+      nuevoContenidoNota: "",
       notas: JSON.parse(localStorage.getItem("notas")) || []
     }
   },
@@ -156,29 +164,31 @@ export default {
   },
 
   methods: {
-    // ===== CAMBIAR TEMA =====
+
     cambiarTema() {
       this.temaIndex = (this.temaIndex + 1) % this.temas.length
       this.tema = this.temas[this.temaIndex]
     },
 
-    // ===== AGENDA =====
+    // AGENDA
     agregarTarea() {
       if(!this.nuevaTarea.titulo) return
       this.tareas.push({...this.nuevaTarea, completada:false})
       localStorage.setItem("tareas", JSON.stringify(this.tareas))
       this.nuevaTarea = { titulo:"", descripcion:"", fecha:"", prioridad:"" }
     },
+
     toggleTarea(index) {
       this.tareas[index].completada = !this.tareas[index].completada
       localStorage.setItem("tareas", JSON.stringify(this.tareas))
     },
+
     eliminarTarea(index) {
       this.tareas.splice(index,1)
       localStorage.setItem("tareas", JSON.stringify(this.tareas))
     },
 
-    // ===== FORMULAS =====
+    // FORMULAS
     subirImagen(event) {
       const file = event.target.files[0]
       if(!file) return
@@ -186,29 +196,40 @@ export default {
       reader.onload = () => { this.nuevaImagen = reader.result }
       reader.readAsDataURL(file)
     },
+
     guardarFormula() {
       if(!this.nuevoTitulo || !this.nuevaImagen) return
       this.formulas.push({titulo:this.nuevoTitulo, imagen:this.nuevaImagen})
       localStorage.setItem("formulas", JSON.stringify(this.formulas))
-      this.nuevoTitulo = ""; this.nuevaImagen = null
+      this.nuevoTitulo = ""
+      this.nuevaImagen = null
     },
+
     eliminarFormula(index) {
       this.formulas.splice(index,1)
       localStorage.setItem("formulas", JSON.stringify(this.formulas))
     },
 
-    // ===== NOTAS =====
+    // NOTAS
     guardarNota() {
-      if(!this.nuevaNota) return
-      this.notas.push(this.nuevaNota)
+      if(!this.nuevoTituloNota || !this.nuevoContenidoNota) return
+
+      this.notas.push({
+        titulo: this.nuevoTituloNota,
+        contenido: this.nuevoContenidoNota
+      })
+
       localStorage.setItem("notas", JSON.stringify(this.notas))
-      this.nuevaNota = ""
+
+      this.nuevoTituloNota = ""
+      this.nuevoContenidoNota = ""
     },
 
     eliminarNota(index) {
       this.notas.splice(index,1)
       localStorage.setItem("notas", JSON.stringify(this.notas))
     }
+
   }
 }
 </script>
