@@ -93,15 +93,23 @@
             <h2>📝 Notas</h2>
 
             <textarea
-              v-model="nota"
+              v-model="nuevaNota"
               class="form-control mb-3"
-              rows="6"
-              placeholder="Escribe aquí...">
+              rows="4"
+              placeholder="Escribe una nueva nota...">
             </textarea>
 
-            <button class="btn btn-primary" @click="guardarNota">
+            <button class="btn btn-primary mb-4" @click="guardarNota">
               Guardar nota
             </button>
+
+            <div v-for="(nota, index) in notas" :key="index" class="card p-3 mb-3">
+              <p>{{ nota }}</p>
+
+              <button class="btn btn-danger btn-sm" @click="eliminarNota(index)">
+                Eliminar
+              </button>
+            </div>
 
           </div>
 
@@ -134,7 +142,8 @@ export default {
       formulas: JSON.parse(localStorage.getItem("formulas")) || [],
 
       // NOTAS
-      nota: localStorage.getItem("nota") || ""
+      nuevaNota: "",
+      notas: JSON.parse(localStorage.getItem("notas")) || []
     }
   },
 
@@ -190,7 +199,15 @@ export default {
 
     // ===== NOTAS =====
     guardarNota() {
-      localStorage.setItem("nota", this.nota)
+      if(!this.nuevaNota) return
+      this.notas.push(this.nuevaNota)
+      localStorage.setItem("notas", JSON.stringify(this.notas))
+      this.nuevaNota = ""
+    },
+
+    eliminarNota(index) {
+      this.notas.splice(index,1)
+      localStorage.setItem("notas", JSON.stringify(this.notas))
     }
   }
 }
