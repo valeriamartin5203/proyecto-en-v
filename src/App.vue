@@ -83,7 +83,7 @@
 
             <div v-for="(formula, index) in formulas" :key="index" class="card p-3 mb-3">
               <h5>{{ formula.titulo }}</h5>
-              <img :src="formula.imagen" />
+              <img :src="formula.imagen" style="max-width:100%" />
               <button class="btn btn-danger btn-sm mt-2" @click="eliminarFormula(index)">Eliminar</button>
             </div>
           </div>
@@ -146,16 +146,13 @@ export default {
     agregarTarea() {
       if(!this.nuevaTarea.titulo) return
       this.tareas.push({...this.nuevaTarea, completada:false})
-      localStorage.setItem("tareas", JSON.stringify(this.tareas))
       this.nuevaTarea = { titulo:"", descripcion:"", fecha:"", prioridad:"" }
     },
     toggleTarea(index) {
       this.tareas[index].completada = !this.tareas[index].completada
-      localStorage.setItem("tareas", JSON.stringify(this.tareas))
     },
     eliminarTarea(index) {
       this.tareas.splice(index,1)
-      localStorage.setItem("tareas", JSON.stringify(this.tareas))
     },
 
     // ===== FORMULAS =====
@@ -169,17 +166,36 @@ export default {
     guardarFormula() {
       if(!this.nuevoTitulo || !this.nuevaImagen) return
       this.formulas.push({titulo:this.nuevoTitulo, imagen:this.nuevaImagen})
-      localStorage.setItem("formulas", JSON.stringify(this.formulas))
-      this.nuevoTitulo = ""; this.nuevaImagen = null
+      this.nuevoTitulo = ""
+      this.nuevaImagen = null
     },
     eliminarFormula(index) {
       this.formulas.splice(index,1)
-      localStorage.setItem("formulas", JSON.stringify(this.formulas))
     }
   },
 
   watch: {
-    nota(valor) { localStorage.setItem("nota", valor) }
+
+    // GUARDAR TAREAS AUTOMÁTICAMENTE
+    tareas: {
+      handler(valor) {
+        localStorage.setItem("tareas", JSON.stringify(valor))
+      },
+      deep: true
+    },
+
+    // GUARDAR FORMULAS AUTOMÁTICAMENTE
+    formulas: {
+      handler(valor) {
+        localStorage.setItem("formulas", JSON.stringify(valor))
+      },
+      deep: true
+    },
+
+    // GUARDAR NOTA AUTOMÁTICAMENTE
+    nota(valor) {
+      localStorage.setItem("nota", valor)
+    }
   }
 }
 </script>
