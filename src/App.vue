@@ -91,7 +91,18 @@
           <!-- ================= NOTAS ================= -->
           <div v-if="currentView === 'notas'">
             <h2>📝 Notas</h2>
-            <textarea v-model="nota" class="form-control" rows="6" placeholder="Escribe aquí..."></textarea>
+
+            <textarea
+              v-model="nota"
+              class="form-control mb-3"
+              rows="6"
+              placeholder="Escribe aquí...">
+            </textarea>
+
+            <button class="btn btn-primary" @click="guardarNota">
+              Guardar nota
+            </button>
+
           </div>
 
         </main>
@@ -146,13 +157,16 @@ export default {
     agregarTarea() {
       if(!this.nuevaTarea.titulo) return
       this.tareas.push({...this.nuevaTarea, completada:false})
+      localStorage.setItem("tareas", JSON.stringify(this.tareas))
       this.nuevaTarea = { titulo:"", descripcion:"", fecha:"", prioridad:"" }
     },
     toggleTarea(index) {
       this.tareas[index].completada = !this.tareas[index].completada
+      localStorage.setItem("tareas", JSON.stringify(this.tareas))
     },
     eliminarTarea(index) {
       this.tareas.splice(index,1)
+      localStorage.setItem("tareas", JSON.stringify(this.tareas))
     },
 
     // ===== FORMULAS =====
@@ -166,35 +180,17 @@ export default {
     guardarFormula() {
       if(!this.nuevoTitulo || !this.nuevaImagen) return
       this.formulas.push({titulo:this.nuevoTitulo, imagen:this.nuevaImagen})
-      this.nuevoTitulo = ""
-      this.nuevaImagen = null
+      localStorage.setItem("formulas", JSON.stringify(this.formulas))
+      this.nuevoTitulo = ""; this.nuevaImagen = null
     },
     eliminarFormula(index) {
       this.formulas.splice(index,1)
-    }
-  },
-
-  watch: {
-
-    // GUARDAR TAREAS AUTOMÁTICAMENTE
-    tareas: {
-      handler(valor) {
-        localStorage.setItem("tareas", JSON.stringify(valor))
-      },
-      deep: true
+      localStorage.setItem("formulas", JSON.stringify(this.formulas))
     },
 
-    // GUARDAR FORMULAS AUTOMÁTICAMENTE
-    formulas: {
-      handler(valor) {
-        localStorage.setItem("formulas", JSON.stringify(valor))
-      },
-      deep: true
-    },
-
-    // GUARDAR NOTA AUTOMÁTICAMENTE
-    nota(valor) {
-      localStorage.setItem("nota", valor)
+    // ===== NOTAS =====
+    guardarNota() {
+      localStorage.setItem("nota", this.nota)
     }
   }
 }
