@@ -1,0 +1,353 @@
+
+/* ===================================================== */
+/* 🌗 CONFIGURACIÓN GENERAL Y TRANSICIÓN */
+/* ===================================================== */
+
+body {
+  margin: 0;
+}
+
+.tema-rosa,
+.tema-oscuro,
+.tema-amarillo {
+  min-height: 100vh;
+  transition: all 0.4s ease;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Transiciones suaves en elementos */
+nav,
+.card,
+button,
+input,
+textarea,
+select {
+  transition: background 0.4s ease, color 0.4s ease, border 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* ===================================================== */
+/* 🌸 TEMA ROSA */
+/* ===================================================== */
+
+.tema-rosa {
+  background: linear-gradient(135deg, #ffd6e8, #ffeaf4);
+  color: #5a4a52;
+}
+
+/* SIDEBAR */
+.tema-rosa nav {
+  background: linear-gradient(180deg, #ffb3c6, #ffc2d1);
+  height: 100vh;
+  padding-top: 25px;
+  box-shadow: 5px 0 20px rgba(255, 182, 193, 0.3);
+}
+
+.tema-rosa nav h5 {
+  color: white;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.tema-rosa nav button {
+  background: transparent;
+  border: none;
+  color: white;
+  padding: 12px;
+  margin: 5px 10px;
+  border-radius: 15px;
+  font-weight: 500;
+}
+
+.tema-rosa nav button:hover {
+  background: rgba(255,255,255,0.4);
+  color: #5a4a52;
+}
+
+/* INPUTS */
+.tema-rosa input,
+.tema-rosa textarea,
+.tema-rosa select {
+  background: #fff0f6;
+  border: 1px solid #ffc2d1;
+  color: #5a4a52;
+  padding: 10px;
+  border-radius: 12px;
+}
+
+.tema-rosa input:focus,
+.tema-rosa textarea:focus,
+.tema-rosa select:focus {
+  outline: none;
+  border-color: #ff8fab;
+  box-shadow: 0 0 10px rgba(255, 143, 171, 0.3);
+}
+
+/* BOTONES */
+.tema-rosa .btn-primary {
+  background-color: #ff8fab !important;
+  border: none;
+}
+
+.tema-rosa .btn-primary:hover {
+  background-color: #fb6f92 !important;
+}
+
+.tema-rosa .btn-success {
+  background-color: #bde0fe !important;
+  color: #5a4a52;
+  border: none;
+}
+
+.tema-rosa .btn-danger {
+  background-color: #ffb3c6 !important;
+  color: #5a4a52;
+  border: none;
+}
+
+/* CARDS */
+.tema-rosa .card {
+  background: #fff0f6;
+  border: 1px solid #ffc2d1;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(255, 182, 193, 0.2);
+}
+
+.tema-rosa .card:hover {
+  transform: translateY(-5px);
+}
+
+/* ===================================================== */
+/* 🌌 TEMA OSCURO */
+/* ===================================================== */
+
+.tema-oscuro {
+  background: linear-gradient(135deg, #1f1c2c, #3a6073);
+  color: white;
+}
+
+/* SIDEBAR */
+.tema-oscuro nav {
+  background: rgba(0, 0, 0, 0.7);
+  height: 100vh;
+  padding-top: 25px;
+  box-shadow: 5px 0 20px rgba(0, 0, 0, 0.4);
+}
+
+.tema-oscuro nav h5 {
+  color: #00b4d8;
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.tema-oscuro nav button {
+  background: transparent;
+  border: none;
+  color: white;
+  padding: 12px;
+  margin: 5px 10px;
+  border-radius: 12px;
+}
+
+.tema-oscuro nav button:hover {
+  background: rgba(255,255,255,0.1);
+  color: #00b4d8;
+}
+
+/* INPUTS */
+.tema-oscuro input,
+.tema-oscuro textarea,
+.tema-oscuro select {
+  background: rgba(255,255,255,0.1);
+  border: none;
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+/* BOTONES */
+.tema-oscuro .btn-primary {
+  background-color: #3a6073 !important;
+  border: none;
+}
+
+.tema-oscuro .btn-success {
+  background-color: #00b4d8 !important;
+  border: none;
+}
+
+.tema-oscuro .btn-danger {
+  background-color: #ff4d6d !important;
+  border: none;
+}
+
+/* CARDS */
+.tema-oscuro .card {
+  background: rgba(255,255,255,0.08);
+  border-radius: 15px;
+}
+
+.tema-oscuro .card:hover {
+  transform: translateY(-5px);
+}
+
+/* ===================================================== */
+/* ☀️ TEMA AMARILLO */
+/* ===================================================== */
+
+.tema-amarillo {
+  background: linear-gradient(135deg, #fff9c4, #fffde7);
+  color: #5a5a00;
+}
+
+/* SIDEBAR */
+.tema-amarillo nav {
+  background: linear-gradient(180deg, #fff176, #fff59d);
+  height: 100vh;
+  padding-top: 25px;
+  box-shadow: 5px 0 20px rgba(253, 216, 53, 0.3);
+}
+
+.tema-amarillo nav h5 {
+  color: #5a5a00;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.tema-amarillo nav button {
+  background: transparent;
+  border: none;
+  color: #5a5a00;
+  padding: 12px;
+  margin: 5px 10px;
+  border-radius: 15px;
+  font-weight: 500;
+}
+
+.tema-amarillo nav button:hover {
+  background: rgba(255,255,255,0.4);
+}
+
+/* INPUTS */
+.tema-amarillo input,
+.tema-amarillo textarea,
+.tema-amarillo select {
+  background: #fffde7;
+  border: 1px solid #fff59d;
+  color: #5a4a00;
+  padding: 10px;
+  border-radius: 12px;
+}
+
+.tema-amarillo input:focus,
+.tema-amarillo textarea:focus,
+.tema-amarillo select:focus {
+  outline: none;
+  border-color: #fdd835;
+  box-shadow: 0 0 10px rgba(253, 216, 53, 0.3);
+}
+
+/* BOTONES */
+.tema-amarillo .btn-primary {
+  background-color: #fdd835 !important;
+  border: none;
+  color: #5a4a00;
+}
+
+.tema-amarillo .btn-success {
+  background-color: #aed581 !important;
+  border: none;
+  color: #2e3d00;
+}
+
+.tema-amarillo .btn-danger {
+  background-color: #ff8a65 !important;
+  border: none;
+}
+
+/* CARDS */
+.tema-amarillo .card {
+  background: #fffde7;
+  border: 1px solid #fff59d;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(253, 216, 53, 0.2);
+}
+
+.tema-amarillo .card:hover {
+  transform: translateY(-5px);
+}
+
+/* ===================================================== */
+/* PRIORIDADES */
+/* ===================================================== */
+
+.alta {
+  border-left: 6px solid #fb6f92;
+}
+
+.media {
+  border-left: 6px solid #ffafcc;
+}
+
+.baja {
+  border-left: 6px solid #cdb4db;
+}
+
+/* ===================================================== */
+/* TEXTO COMPLETADO */
+/* ===================================================== */
+
+.text-decoration-line-through {
+  opacity: 0.6;
+}
+
+/* ===================================================== */
+/* BOTÓN CAMBIAR TEMA */
+/* ===================================================== */
+
+.theme-switch {
+  position: fixed;
+  top: 15px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.theme-switch button {
+  padding: 8px 15px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.theme-switch button:hover {
+  transform: scale(1.05);
+}
+
+/* ===================================================== */
+/* IMÁGENES */
+/* ===================================================== */
+
+img {
+  border-radius: 15px;
+  margin-top: 10px;
+  max-width: 100%;
+}
+
+/* BOTON CAMBIAR TEMA */
+
+.tema-rosa .theme-switch button{
+  background: #ff8fab;
+  color: white;
+}
+
+.tema-oscuro .theme-switch button{
+  background: #00b4d8;
+  color: white;
+}
+
+.tema-amarillo .theme-switch button{
+  background: #fdd835;
+  color: #5a4a00;
+}

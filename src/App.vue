@@ -1,135 +1,185 @@
 <template>
-  <div class="container">
-    <h1>📚 Agenda de Tareas</h1>
+  <div :class="tema">
 
-    <form @submit.prevent="agregarTarea">
-      <input 
-        v-model="nuevaTarea.titulo" 
-        placeholder="Nombre de la tarea" 
-        required 
-      />
-
-      <input 
-        v-model="nuevaTarea.materia" 
-        placeholder="Materia" 
-        required 
-      />
-
-      <input 
-        type="date" 
-        v-model="nuevaTarea.fecha" 
-        required 
-      />
-
-      <button type="submit" class="btn-agregar">
-        Agregar
+    <!-- BOTÓN CAMBIAR TEMA -->
+    <div class="theme-switch p-2">
+      <button class="btn btn-outline-light" @click="cambiarTema">
+        Cambiar Tema
       </button>
-    </form>
-
-    <div class="filtros">
-      <button @click="filtro = 'todas'">Todas</button>
-      <button @click="filtro = 'pendientes'">Pendientes</button>
-      <button @click="filtro = 'completadas'">Completadas</button>
     </div>
 
-    <ul>
-      <li v-for="tarea in tareasFiltradas" :key="tarea.id">
-        <div>
-          <strong :class="{ completada: tarea.completada }">
-            {{ tarea.titulo }}
-          </strong>
-          <p>
-            {{ tarea.materia }} | {{ tarea.fecha }}
-          </p>
-        </div>
+    <div class="container-fluid">
+      <div class="row">
 
-        <div>
-          <button 
-            @click="toggleTarea(tarea.id)" 
-            class="btn-completar"
-          >
-            ✔
+        <!-- SIDEBAR -->
+        <nav class="col-md-3 col-lg-2 p-3 vh-100">
+          <h5>📚 Menú</h5>
+
+          <button class="btn w-100 text-start mb-2" @click="currentView = 'organizar'">
+            🗂 Organizar
           </button>
 
-          <button 
-            @click="eliminarTarea(tarea.id)" 
-            class="btn-eliminar"
-          >
-            ❌
+          <button class="btn w-100 text-start mb-2" @click="currentView = 'formulas'">
+            📘 Fórmulas
           </button>
-        </div>
-      </li>
-    </ul>
 
-    <p>
-      Tareas pendientes: 
-      <strong>{{ pendientes }}</strong>
-    </p>
+          <button class="btn w-100 text-start" @click="currentView = 'notas'">
+            📝 Notas
+          </button>
+        </nav>
+
+        <!-- CONTENIDO -->
+        <main class="col-md-9 p-4">
+
+          <!-- ================= AGENDA ================= -->
+          <div v-if="currentView === 'organizar'">
+
+            <h2>🗂 Agenda</h2>
+
+            <input v-model="nuevaTarea.titulo" class="form-control mb-2" placeholder="Título" />
+            <textarea v-model="nuevaTarea.descripcion" class="form-control mb-2" placeholder="Descripción"></textarea>
+            <input type="date" v-model="nuevaTarea.fecha" class="form-control mb-2" />
+            <select v-model="nuevaTarea.prioridad" class="form-control mb-2">
+              <option disabled value="">Selecciona prioridad</option>
+              <option>Alta</option>
+              <option>Media</option>
+              <option>Baja</option>
+            </select>
+
+            <button class="btn btn-primary mb-3" @click="agregarTarea">Agregar tarea</button>
+
+            <!-- FILTROS -->
+            <div class="mb-3">
+              <button class="btn btn-outline-secondary me-2" @click="filtro='todas'">Todas</button>
+              <button class="btn btn-outline-warning me-2" @click="filtro='pendientes'">Pendientes</button>
+              <button class="btn btn-outline-success" @click="filtro='completadas'">Completadas</button>
+            </div>
+
+            <!-- LISTA -->
+            <div v-for="(tarea, index) in tareasFiltradas" :key="index" class="card p-3 mb-3"
+              :class="tarea.prioridad.toLowerCase()">
+              <h5 :class="{ 'text-decoration-line-through': tarea.completada }">{{ tarea.titulo }}</h5>
+              <p>{{ tarea.descripcion }}</p>
+              <small>📅 {{ tarea.fecha }}</small><br>
+              <small>⚡ Prioridad: {{ tarea.prioridad }}</small>
+
+              <div class="mt-2">
+                <button class="btn btn-success btn-sm me-2" @click="toggleTarea(index)">Completar</button>
+                <button class="btn btn-danger btn-sm" @click="eliminarTarea(index)">Eliminar</button>
+              </div>
+            </div>
+
+            <p class="fw-bold">Total tareas: {{ tareas.length }}</p>
+
+          </div>
+
+          <!-- ================= FORMULAS ================= -->
+          <div v-if="currentView === 'formulas'">
+            <h2>📘 Fórmulas</h2>
+
+            <input v-model="nuevoTitulo" class="form-control mb-2" placeholder="Título de la fórmula" />
+            <input type="file" @change="subirImagen" class="form-control mb-2" />
+            <button class="btn btn-primary mb-4" @click="guardarFormula">Guardar fórmula</button>
+
+            <div v-for="(formula, index) in formulas" :key="index" class="card p-3 mb-3">
+              <h5>{{ formula.titulo }}</h5>
+              <img :src="formula.imagen" />
+              <button class="btn btn-danger btn-sm mt-2" @click="eliminarFormula(index)">Eliminar</button>
+            </div>
+          </div>
+
+          <!-- ================= NOTAS ================= -->
+          <div v-if="currentView === 'notas'">
+            <h2>📝 Notas</h2>
+            <textarea v-model="nota" class="form-control" rows="6" placeholder="Escribe aquí..."></textarea>
+          </div>
+
+        </main>
+      </div>
+    </div>
   </div>
 </template>
 
-<script setup>
-import { ref, computed, onMounted } from 'vue'
+<script>
+export default {
+  data() {
+    return {
+      // TEMAS
+      temas: ["tema-oscuro", "tema-rosa", "tema-amarillo"],
+      temaIndex: 0,
+      tema: "tema-oscuro",
 
-const tareas = ref([])
-const filtro = ref('todas')
+      // VISTAS
+      currentView: "organizar",
 
-const nuevaTarea = ref({
-  titulo: '',
-  materia: '',
-  fecha: '',
-  completada: false
-})
+      // AGENDA
+      nuevaTarea: { titulo:"", descripcion:"", fecha:"", prioridad:"" },
+      tareas: JSON.parse(localStorage.getItem("tareas")) || [],
+      filtro: "todas",
 
-const agregarTarea = () => {
-  tareas.value.push({
-    ...nuevaTarea.value,
-    id: Date.now()
-  })
+      // FORMULAS
+      nuevoTitulo: "",
+      nuevaImagen: null,
+      formulas: JSON.parse(localStorage.getItem("formulas")) || [],
 
-  guardar()
+      // NOTAS
+      nota: localStorage.getItem("nota") || ""
+    }
+  },
 
-  nuevaTarea.value = {
-    titulo: '',
-    materia: '',
-    fecha: '',
-    completada: false
+  computed: {
+    tareasFiltradas() {
+      if(this.filtro==='pendientes') return this.tareas.filter(t => !t.completada)
+      if(this.filtro==='completadas') return this.tareas.filter(t => t.completada)
+      return this.tareas
+    }
+  },
+
+  methods: {
+    // ===== CAMBIAR TEMA =====
+    cambiarTema() {
+      this.temaIndex = (this.temaIndex + 1) % this.temas.length
+      this.tema = this.temas[this.temaIndex]
+    },
+
+    // ===== AGENDA =====
+    agregarTarea() {
+      if(!this.nuevaTarea.titulo) return
+      this.tareas.push({...this.nuevaTarea, completada:false})
+      localStorage.setItem("tareas", JSON.stringify(this.tareas))
+      this.nuevaTarea = { titulo:"", descripcion:"", fecha:"", prioridad:"" }
+    },
+    toggleTarea(index) {
+      this.tareas[index].completada = !this.tareas[index].completada
+      localStorage.setItem("tareas", JSON.stringify(this.tareas))
+    },
+    eliminarTarea(index) {
+      this.tareas.splice(index,1)
+      localStorage.setItem("tareas", JSON.stringify(this.tareas))
+    },
+
+    // ===== FORMULAS =====
+    subirImagen(event) {
+      const file = event.target.files[0]
+      if(!file) return
+      const reader = new FileReader()
+      reader.onload = () => { this.nuevaImagen = reader.result }
+      reader.readAsDataURL(file)
+    },
+    guardarFormula() {
+      if(!this.nuevoTitulo || !this.nuevaImagen) return
+      this.formulas.push({titulo:this.nuevoTitulo, imagen:this.nuevaImagen})
+      localStorage.setItem("formulas", JSON.stringify(this.formulas))
+      this.nuevoTitulo = ""; this.nuevaImagen = null
+    },
+    eliminarFormula(index) {
+      this.formulas.splice(index,1)
+      localStorage.setItem("formulas", JSON.stringify(this.formulas))
+    }
+  },
+
+  watch: {
+    nota(valor) { localStorage.setItem("nota", valor) }
   }
 }
-
-const eliminarTarea = (id) => {
-  tareas.value = tareas.value.filter(t => t.id !== id)
-  guardar()
-}
-
-const toggleTarea = (id) => {
-  const tarea = tareas.value.find(t => t.id === id)
-  tarea.completada = !tarea.completada
-  guardar()
-}
-
-const tareasFiltradas = computed(() => {
-  if (filtro.value === 'pendientes') {
-    return tareas.value.filter(t => !t.completada)
-  }
-  if (filtro.value === 'completadas') {
-    return tareas.value.filter(t => t.completada)
-  }
-  return tareas.value
-})
-
-const pendientes = computed(() => {
-  return tareas.value.filter(t => !t.completada).length
-})
-
-const guardar = () => {
-  localStorage.setItem('tareas', JSON.stringify(tareas.value))
-}
-
-onMounted(() => {
-  const datos = localStorage.getItem('tareas')
-  if (datos) {
-    tareas.value = JSON.parse(datos)
-  }
-})
 </script>
