@@ -352,5 +352,23 @@ img {
   color: #5a4a00;
   
 }
+/* ================= COLUMNA PRINCIPAL ================= */
 
+/* Tema oscuro */
+.tema-oscuro .col-md-9 {
+  background-color: #2a2a2a;
+  color: white;
+}
+
+/* Tema rosa */
+.tema-rosa .col-md-9 {
+  background-color: #ffe6f0;
+  color: #880e4f;
+}
+
+/* Tema amarillo */
+.tema-amarillo .col-md-9 {
+  background-color: #fff9c4;
+  color: #e65100;
+}
 
