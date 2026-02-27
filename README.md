@@ -135,6 +135,12 @@ https://proyecto-en-v.onrender.com/
   <img src="public/imagenes/img5.PNG" width="700">
 </p>
 
+<p align="center">
+  <img width="1919" height="945" alt="img6" src="https://github.com/user-attachments/assets/8486125a-34ef-4027-b18a-b8d60970b978" />
+</p>
+
+
+
 ---
 
 ## Ideas para actualizaciones
