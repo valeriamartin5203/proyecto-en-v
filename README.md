@@ -137,6 +137,9 @@ https://proyecto-en-v.onrender.com/
 
 ---
 
-## 👩‍💻 Autor
+## Ideas para actualizaciones
+
+-Agregar notificaciones
+
 
 Proyecto desarrollado como trabajo libre utilizando Vue 3.
