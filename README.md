@@ -84,7 +84,3 @@ Contribuir
 	<img src="public/imagenes/img5.PNG" width="700" alt="Captura de la app">
 </p>
 
----
-Si quieres, puedo también:
-- Añadir instrucciones para desplegar en GitHub Pages o Netlify.
-- Añadir tests o formato automático.
