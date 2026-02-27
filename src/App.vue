@@ -21,8 +21,8 @@
                 @change="cambiarSonido"
                 class="form-select mt-1 mb-2">
 
-          <option value="/sonidos/campanas.mp3">🔔 Campanas</option>
-          <option value="/sonidos/c1.mp3">🎵 Sonido 2</option>
+          <option value="public/sonidos/campanas.mp3">🔔 Campanas</option>
+          <option value="public/sonidos/c1.mp3">🎵 Sonido 2</option>
         </select>
       </div>
     </div>
