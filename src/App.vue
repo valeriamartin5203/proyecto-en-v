@@ -1,9 +1,16 @@
 <template>
   <div :class="tema">
 
-    <!-- BOTÓN TEMA + SONIDO -->
-    <div class="theme-switch p-2">
-      <button class="btn btn-outline-light mb-2" @click="cambiarTema">
+    <!-- PANEL SUPERIOR -->
+    <div class="theme-switch p-3">
+
+      <button class="btn btn-success mb-2 w-100"
+              @click="activarAudio">
+        🔊 Activar Sonido
+      </button>
+
+      <button class="btn btn-outline-light mb-2 w-100"
+              @click="cambiarTema">
         Cambiar Tema
       </button>
 
@@ -203,11 +210,12 @@
 
 <script>
 export default {
+
   data() {
     return {
       temas: ["tema-oscuro", "tema-rosa", "tema-amarillo"],
       temaIndex: 0,
-      tema: "tema-oscuro",
+      tema: localStorage.getItem("tema") || "tema-oscuro",
 
       currentView: "organizar",
 
@@ -226,7 +234,8 @@ export default {
       notas: JSON.parse(localStorage.getItem("notas")) || [],
 
       sonidoSeleccionado: localStorage.getItem("sonido") || "/sonidos/campanas.mp3",
-      audio: null
+      audio: null,
+      audioActivado: false
     }
   },
 
@@ -244,84 +253,79 @@ export default {
 
   mounted() {
 
-    document.addEventListener("click", () => {
-      if(this.audio){
-        this.audio.play()
-          .then(() => {
-            this.audio.pause()
-            this.audio.currentTime = 0
-          })
-          .catch(() => {})
-      }
-    }, { once: true })
-
-    const temaGuardado = localStorage.getItem("tema")
-    if(temaGuardado){
-      this.tema = temaGuardado
-      this.temaIndex = this.temas.indexOf(temaGuardado)
-    }
-
     if("Notification" in window){
       Notification.requestPermission()
     }
 
     this.cargarSonido()
-    this.verificarTareas()
-    setInterval(() => this.verificarTareas(), 60000)
+
+    setInterval(() => {
+      this.verificarTareas()
+    }, 60000)
   },
 
   methods: {
 
-    cambiarTema(){
-      this.temaIndex = (this.temaIndex + 1) % this.temas.length
-      this.tema = this.temas[this.temaIndex]
-      localStorage.setItem("tema", this.tema)
+    activarAudio(){
+      if(!this.audio) return
+
+      this.audio.play()
+        .then(()=>{
+          this.audio.pause()
+          this.audio.currentTime=0
+          this.audioActivado=true
+          alert("Sonido activado correctamente")
+        })
+        .catch(err=>{
+          console.log("Audio bloqueado:",err)
+        })
     },
 
     cargarSonido(){
       this.audio = new Audio(this.sonidoSeleccionado)
-      this.audio.load()
+      this.audio.preload="auto"
+      this.audio.volume=1
     },
 
     cambiarSonido(){
-      localStorage.setItem("sonido", this.sonidoSeleccionado)
+      localStorage.setItem("sonido",this.sonidoSeleccionado)
       this.cargarSonido()
     },
 
     probarSonido(){
       if(this.audio){
-        this.audio.currentTime = 0
-        this.audio.play().catch(err =>
-          console.log("Audio bloqueado:", err)
-        )
+        this.audio.currentTime=0
+        this.audio.play().catch(()=>{})
       }
     },
 
     verificarTareas(){
-      this.tareas.forEach(tarea => {
+
+      if(!this.audioActivado) return
+
+      this.tareas.forEach(tarea=>{
+
         if(
-          tarea.fecha === this.hoy &&
+          tarea.fecha===this.hoy &&
           !tarea.completada &&
           !this.tareasNotificadas.includes(tarea.titulo)
         ){
-          this.mostrarNotificacion(tarea.titulo)
+
+          if(Notification.permission==="granted"){
+            new Notification("📌 Tarea para hoy",{
+              body:`No olvides: ${tarea.titulo}`
+            })
+          }
 
           if(this.audio){
-            this.audio.currentTime = 0
+            this.audio.currentTime=0
             this.audio.play().catch(()=>{})
           }
 
           this.tareasNotificadas.push(tarea.titulo)
         }
-      })
-    },
 
-    mostrarNotificacion(titulo){
-      if(Notification.permission === "granted"){
-        new Notification("📌 Tarea para hoy", {
-          body: `No olvides: ${titulo}`
-        })
-      }
+      })
     },
 
     agregarTarea(){
@@ -335,14 +339,14 @@ export default {
       localStorage.setItem("tareas",
         JSON.stringify(this.tareas))
 
-      this.nuevaTarea = {
-        titulo:"", descripcion:"",
-        fecha:"", prioridad:""
+      this.nuevaTarea={
+        titulo:"",descripcion:"",
+        fecha:"",prioridad:""
       }
     },
 
     toggleTarea(index){
-      this.tareas[index].completada =
+      this.tareas[index].completada=
         !this.tareas[index].completada
 
       localStorage.setItem("tareas",
@@ -357,12 +361,12 @@ export default {
     },
 
     subirImagen(event){
-      const file = event.target.files[0]
+      const file=event.target.files[0]
       if(!file) return
 
-      const reader = new FileReader()
-      reader.onload = () => {
-        this.nuevaImagen = reader.result
+      const reader=new FileReader()
+      reader.onload=()=>{
+        this.nuevaImagen=reader.result
       }
       reader.readAsDataURL(file)
     },
@@ -409,7 +413,14 @@ export default {
 
       localStorage.setItem("notas",
         JSON.stringify(this.notas))
+    },
+
+    cambiarTema(){
+      this.temaIndex=(this.temaIndex+1)%this.temas.length
+      this.tema=this.temas[this.temaIndex]
+      localStorage.setItem("tema",this.tema)
     }
+
   }
 }
 </script>
