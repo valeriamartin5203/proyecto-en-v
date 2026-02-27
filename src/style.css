@@ -356,16 +356,16 @@ img {
 
 /* Tema oscuro */
 .tema-oscuro .col-md-9 {
-  color: white;
+  color: white !important;
 }
 
 /* Tema rosa */
 .tema-rosa .col-md-9 {
-  color: #880e4f;
+  color: #880e4f !important;
 }
 
 /* Tema amarillo */
 .tema-amarillo .col-md-9 {
-  color: #e65100;
+  color: #e65100 !important;
 }
 
