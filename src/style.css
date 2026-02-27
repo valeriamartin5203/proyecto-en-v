@@ -368,4 +368,20 @@ img {
 .tema-amarillo .col-md-9 {
   color: #e65100 !important;
 }
+/* Tema oscuro */
+.tema-oscuro .form-control mb-2 {
+  color: white !important;
+}
+
+/* Tema rosa */
+.tema-rosa .form-control mb-2 {
+  color: #880e4f !important;
+}
+
+/* Tema amarillo */
+.tema-amarillo .form-control mb-2 {
+  color: #e65100 !important;
+}
+
+
 
