@@ -64,10 +64,24 @@ Contribuir
 
 ## Imagenes
 
-La siguiente es una captura de ejemplo generada automáticamente para el README:
+<p align="center">
+	<img src="public/imagenes/img1.PNG" width="700" alt="Captura de la app">
+</p>
 
 <p align="center">
-	<img src="public/imagenes/img1" width="700" alt="Captura de la app">
+	<img src="public/imagenes/img2.PNG" width="700" alt="Captura de la app">
+</p>
+
+<p align="center">
+	<img src="public/imagenes/img3.PNG" width="700" alt="Captura de la app">
+</p>
+
+<p align="center">
+	<img src="public/imagenes/img4.PNG" width="700" alt="Captura de la app">
+</p>
+
+<p align="center">
+	<img src="public/imagenes/img5.PNG" width="700" alt="Captura de la app">
 </p>
 
 ---
