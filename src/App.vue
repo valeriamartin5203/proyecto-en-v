@@ -424,3 +424,21 @@ export default {
   }
 }
 </script>
+
+<style>
+.tema-oscuro{
+  background:#1e1e1e;
+  color:white;
+  min-height:100vh;
+}
+.tema-rosa{
+  background:#ffb6c1;
+  color:black;
+  min-height:100vh;
+}
+.tema-amarillo{
+  background:#fff176;
+  color:black;
+  min-height:100vh;
+}
+</style>
