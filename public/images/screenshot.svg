@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1">
+      <stop offset="0%" stop-color="#ffd6e8"/>
+      <stop offset="100%" stop-color="#ffeaf4"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="700" fill="#f5f7fb" rx="20"/>
+  <g transform="translate(40,40)">
+    <rect width="1120" height="620" rx="16" fill="url(#g)" stroke="#e6cfe0" stroke-width="2"/>
+    <rect x="24" y="24" width="1072" height="80" rx="12" fill="#ffffff" opacity="0.6"/>
+    <text x="60" y="78" font-family="Poppins, sans-serif" font-size="34" fill="#5a4a52">Agenda — Captura de ejemplo</text>
+
+    <g transform="translate(40,140)">
+      <rect width="1000" height="420" rx="12" fill="#ffffff" opacity="0.9"/>
+      <text x="30" y="40" font-family="Poppins, sans-serif" font-size="20" fill="#333">• Tarea: Estudiar para examen</text>
+      <text x="30" y="80" font-family="Poppins, sans-serif" font-size="16" fill="#666">• Fecha: 2026-03-01 — Prioridad: Alta</text>
+      <text x="30" y="120" font-family="Poppins, sans-serif" font-size="16" fill="#666">• Notas: Repasar fórmulas principales y ejercicios.</text>
+    </g>
+  </g>
+</svg>
