@@ -230,7 +230,7 @@ export default {
 
       sonidoSeleccionado: localStorage.getItem("sonido") || "/sonidos/campanas.mp3",
       audio: null,
-      audioActivado: false
+      audioActivado: localStorage.getItem("audioActivado") === "true"
     }
   },
 
@@ -254,6 +254,30 @@ export default {
 
     this.cargarSonido()
 
+    if(this.audioActivado && this.audio){
+      this.audio.play()
+        .then(()=>{
+          this.audio.pause()
+          this.audio.currentTime = 0
+        })
+        .catch(()=>{})
+    }
+
+    if(!this.audioActivado){
+      window.addEventListener("click", () => {
+        if(this.audio){
+          this.audio.play()
+            .then(()=>{
+              this.audio.pause()
+              this.audio.currentTime = 0
+              this.audioActivado = true
+              localStorage.setItem("audioActivado","true")
+            })
+            .catch(()=>{})
+        }
+      }, { once:true })
+    }
+
     setInterval(() => {
       this.verificarTareas()
     }, 60000)
@@ -269,6 +293,7 @@ export default {
           this.audio.pause()
           this.audio.currentTime=0
           this.audioActivado=true
+          localStorage.setItem("audioActivado","true")
           alert("Sonido activado correctamente")
         })
         .catch(err=>{
@@ -324,8 +349,7 @@ export default {
         completada:false
       })
 
-      localStorage.setItem("tareas",
-        JSON.stringify(this.tareas))
+      localStorage.setItem("tareas", JSON.stringify(this.tareas))
 
       this.nuevaTarea={
         titulo:"",descripcion:"",
@@ -334,18 +358,13 @@ export default {
     },
 
     toggleTarea(index){
-      this.tareas[index].completada=
-        !this.tareas[index].completada
-
-      localStorage.setItem("tareas",
-        JSON.stringify(this.tareas))
+      this.tareas[index].completada=!this.tareas[index].completada
+      localStorage.setItem("tareas", JSON.stringify(this.tareas))
     },
 
     eliminarTarea(index){
       this.tareas.splice(index,1)
-
-      localStorage.setItem("tareas",
-        JSON.stringify(this.tareas))
+      localStorage.setItem("tareas", JSON.stringify(this.tareas))
     },
 
     subirImagen(event){
@@ -367,8 +386,7 @@ export default {
         imagen:this.nuevaImagen
       })
 
-      localStorage.setItem("formulas",
-        JSON.stringify(this.formulas))
+      localStorage.setItem("formulas", JSON.stringify(this.formulas))
 
       this.nuevoTitulo=""
       this.nuevaImagen=null
@@ -376,9 +394,7 @@ export default {
 
     eliminarFormula(index){
       this.formulas.splice(index,1)
-
-      localStorage.setItem("formulas",
-        JSON.stringify(this.formulas))
+      localStorage.setItem("formulas", JSON.stringify(this.formulas))
     },
 
     guardarNota(){
@@ -389,8 +405,7 @@ export default {
         contenido:this.nuevoContenidoNota
       })
 
-      localStorage.setItem("notas",
-        JSON.stringify(this.notas))
+      localStorage.setItem("notas", JSON.stringify(this.notas))
 
       this.nuevoTituloNota=""
       this.nuevoContenidoNota=""
@@ -398,9 +413,7 @@ export default {
 
     eliminarNota(index){
       this.notas.splice(index,1)
-
-      localStorage.setItem("notas",
-        JSON.stringify(this.notas))
+      localStorage.setItem("notas", JSON.stringify(this.notas))
     },
 
     cambiarTema(){
