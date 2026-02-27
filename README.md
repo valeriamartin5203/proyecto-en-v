@@ -1,86 +1,136 @@
-## Project setup
-# Agenda y Notas (Proyecto Libre)
+# 📚 Agenda y Notas (Proyecto Libre)
 
-Aplicación web pequeña creada con Vue 3 para gestionar tareas, guardar fórmulas (como imágenes) y tomar notas.
+Aplicación web desarrollada con Vue 3 para gestionar tareas, guardar fórmulas como imágenes y crear notas rápidas.
 
-Características principales
-- Agenda: crear tareas con título, descripción, fecha y prioridad; marcar completadas y filtrar.
-- Fórmulas: subir y guardar imágenes con un título.
-- Notas: crear, listar y eliminar notas simples.
+---
 
-Archivos importantes
-- Interfaz principal: [src/App.vue](src/App.vue)
-- Entrada de la app: [src/main.js](src/main.js)
-- Estilos: [src/style.css](src/style.css)
-- HTML base: [public/index.html](public/index.html)
-- Configuración del proyecto: [package.json](package.json)
+## 🚀 Características
 
-Instalación
+### 🗂 Agenda
+- Crear tareas con:
+  - Título
+  - Descripción
+  - Fecha
+  - Prioridad (Alta, Media, Baja)
+- Marcar tareas como completadas
+- Filtrar por:
+  - Todas
+  - Pendientes
+  - Completadas
+
+### 📘 Fórmulas
+- Subir imágenes desde el dispositivo
+- Guardarlas con un título
+- Eliminar fórmulas guardadas
+
+### 📝 Notas
+- Crear notas simples
+- Visualizarlas en lista
+- Eliminarlas
+
+### 🎨 Temas
+- Cambiar entre:
+  - Tema oscuro
+  - Tema rosa
+  - Tema amarillo
+
+---
+
+## 🛠 Tecnologías usadas
+
+- Vue 3
+- JavaScript
+- HTML5
+- CSS3
+- Bootstrap
+- LocalStorage
+
+---
+
+## 📂 Estructura del proyecto
+
+```
+src/
+ ├── App.vue        # Interfaz principal
+ ├── main.js        # Punto de entrada
+ ├── style.css      # Estilos personalizados
+
+public/
+ ├── index.html     # HTML base
+ ├── imagenes/      # Capturas del proyecto
+
+package.json        # Configuración y dependencias
+```
+
+---
+
+## ⚙️ Instalación
+
 1. Clona el repositorio o descarga el proyecto.
-2. Instala dependencias:
-# Agenda y Notas (Proyecto Libre)
-
-Aplicación web pequeña creada con Vue 3 para gestionar tareas, guardar fórmulas (como imágenes) y tomar notas.
-
-Características principales
-- Agenda: crear tareas con título, descripción, fecha y prioridad; marcar completadas y filtrar.
-- Fórmulas: subir y guardar imágenes con un título.
-- Notas: crear, listar y eliminar notas simples.
-
-Archivos importantes
-- Interfaz principal: [src/App.vue](src/App.vue)
-- Entrada de la app: [src/main.js](src/main.js)
-- Estilos: [src/style.css](src/style.css)
-- HTML base: [public/index.html](public/index.html)
-- Configuración del proyecto: [package.json](package.json)
-
-Instalación
-1. Clona el repositorio o descarga el proyecto.
-2. Instala dependencias:
+2. Abre la carpeta en Visual Studio Code.
+3. Instala las dependencias:
 
 ```bash
 npm install
 ```
 
-Desarrollo (modo caliente)
+---
+
+## 💻 Ejecutar en modo desarrollo
 
 ```bash
 npm run serve
 ```
 
-Producción
+Luego abre en tu navegador:
+
+```
+http://localhost:8080/
+```
+
+---
+
+## 📦 Compilar para producción
 
 ```bash
 npm run build
 ```
 
-Notas de uso
-- Los datos (tareas, fórmulas y notas) se almacenan en `localStorage` del navegador; no hay backend.
-- Para agregar una fórmula usa el selector de archivos y guarda la imagen (se convierte a Data URL).
-- Cambia entre temas con el botón "Cambiar Tema" en la esquina superior derecha.
+---
 
-Contribuir
-- Pull requests bienvenidas. Abre un issue para discutir cambios mayores.
+## 📝 Notas importantes
 
-## Imagenes
+- Los datos (tareas, fórmulas y notas) se guardan en `localStorage`.
+- No utiliza base de datos ni backend.
+- Las imágenes se convierten en Data URL al guardarse.
+- Si borras los datos del navegador, se perderá la información almacenada.
+
+---
+
+## 🖼 Capturas del proyecto
 
 <p align="center">
-	<img src="public/imagenes/img1.PNG" width="700" alt="Captura de la app">
+  <img src="public/imagenes/img1.PNG" width="700">
 </p>
 
 <p align="center">
-	<img src="public/imagenes/img2.PNG" width="700" alt="Captura de la app">
+  <img src="public/imagenes/img2.PNG" width="700">
 </p>
 
 <p align="center">
-	<img src="public/imagenes/img3.PNG" width="700" alt="Captura de la app">
+  <img src="public/imagenes/img3.PNG" width="700">
 </p>
 
 <p align="center">
-	<img src="public/imagenes/img4.PNG" width="700" alt="Captura de la app">
+  <img src="public/imagenes/img4.PNG" width="700">
 </p>
 
 <p align="center">
-	<img src="public/imagenes/img5.PNG" width="700" alt="Captura de la app">
+  <img src="public/imagenes/img5.PNG" width="700">
 </p>
 
+---
+
+## 👩‍💻 Autor
+
+Proyecto desarrollado como trabajo libre utilizando Vue 3.
