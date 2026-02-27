@@ -1,5 +1,3 @@
-# hola
-
 ## Project setup
 # Agenda y Notas (Proyecto Libre)
 
