@@ -369,17 +369,17 @@ img {
   color: #e65100 !important;
 }
 /* Tema oscuro */
-.tema-oscuro .form-control mb-2 {
+.tema-oscuro .form-control {
   color: white !important;
 }
 
 /* Tema rosa */
-.tema-rosa .form-control mb-2 {
+.tema-rosa .form-control {
   color: #880e4f !important;
 }
 
 /* Tema amarillo */
-.tema-amarillo .form-control mb-2 {
+.tema-amarillo .form-control {
   color: #e65100 !important;
 }
 
