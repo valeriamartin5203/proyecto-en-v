@@ -24,11 +24,6 @@
           <option value="/sonidos/campanas.mp3">🔔 Campanas</option>
           <option value="/sonidos/c1.mp3">🎵 Sonido 2</option>
         </select>
-
-        <button class="btn btn-warning btn-sm w-100"
-                @click="probarSonido">
-          ▶ Probar sonido
-        </button>
       </div>
     </div>
 
@@ -290,13 +285,6 @@ export default {
     cambiarSonido(){
       localStorage.setItem("sonido",this.sonidoSeleccionado)
       this.cargarSonido()
-    },
-
-    probarSonido(){
-      if(this.audio){
-        this.audio.currentTime=0
-        this.audio.play().catch(()=>{})
-      }
     },
 
     verificarTareas(){
